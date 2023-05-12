@@ -22,6 +22,12 @@ const getDiary = asyncWrap(async (req, res) => {
   res.status(200).send({ message: "success", diary });
 });
 
+const getDiaries = asyncWrap(async (req, res) => {
+  const diaryRepository = new DiaryRepository();
+  const diaries = await diaryRepository.readDiaries();
+  res.status(200).send({ message: "success", diaries });
+});
+
 const editDiary = asyncWrap(async (req, res) => {
   const { diaryId, newDiaryData } = req.body;
   const diaryRepository = new DiaryRepository();
@@ -40,6 +46,7 @@ module.exports = {
   uploadImage,
   postDiary,
   getDiary,
+  getDiaries,
   editDiary,
   deleteDiary,
 };

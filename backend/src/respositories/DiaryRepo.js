@@ -16,6 +16,18 @@ class DiaryRepository {
     }
   }
 
+  async readDiaries() {
+    try {
+      return await Diary.aggregate([
+        { $match: {} },
+        { $addFields: { diaryId: "$_id" } },
+        { $project: { _id: 0, diaryId: 1, title: 1, thumbnail: 1 } },
+      ]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async readDiary(diaryId) {
     try {
       const [filtered] = await Diary.aggregate([
