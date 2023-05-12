@@ -69,6 +69,8 @@ const Button = styled.button`
 `;
 
 const Body = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   height: 90vh;
   overflow: scroll;
 `;

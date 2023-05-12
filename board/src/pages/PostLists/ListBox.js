@@ -31,7 +31,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 80%;
+  width: 180px;
   margin: auto;
   height: 200px;
   border: 2px solid #ddd;
