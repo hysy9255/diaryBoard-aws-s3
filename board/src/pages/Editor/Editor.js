@@ -63,7 +63,7 @@ const Editor = () => {
 
   const createPost = () => {
     if (!title || !contents) return;
-    fetch(`${API.createDiary}`, {
+    fetch(`${API.diary}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
