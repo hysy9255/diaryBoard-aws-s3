@@ -3,9 +3,11 @@ import { styled } from 'styled-components';
 import { FcRules } from 'react-icons/fc';
 import API from '../../API/API';
 import ListBox from './ListBox';
+import { useNavigate } from 'react-router-dom';
 
 const PostLists = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate('');
 
   useEffect(() => {
     fetch(`${API.diary}/list`)
@@ -17,7 +19,13 @@ const PostLists = () => {
     <Container>
       <Header>
         <Title>DIARY</Title>
-        <Button>글쓰기</Button>
+        <Button
+          onClick={() => {
+            navigate('/editor');
+          }}
+        >
+          글쓰기
+        </Button>
       </Header>
       <Body>
         {data?.map(data => {

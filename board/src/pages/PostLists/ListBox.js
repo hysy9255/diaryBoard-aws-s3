@@ -4,10 +4,11 @@ import { FcDocument } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
 
 const ListBox = ({ data }) => {
-  const navigate = useNavigate('', { state: { diaryID: data.diaryID } });
+  console.log(data);
+  const navigate = useNavigate('');
 
   const clickHandler = () => {
-    navigate('/postpage');
+    navigate('/postpage', { state: { diaryId: data.diaryId } });
   };
 
   return (

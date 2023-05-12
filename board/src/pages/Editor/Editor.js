@@ -1,14 +1,15 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import API from '../../API/API';
 
 const Editor = () => {
+  const editData = useLocation().state?.data;
   const navigate = useNavigate('');
-  const [title, setTitle] = useState('');
-  const [contents, setContents] = useState('');
+  const [title, setTitle] = useState(editData ? editData.title : '');
+  const [contents, setContents] = useState(editData ? editData.contents : '');
   const [thumbnail, setThumbnail] = useState('');
   const quillRef = useRef(null);
 
@@ -44,8 +45,7 @@ const Editor = () => {
                   if (thumbnail.length === 0) {
                     setThumbnail(img);
                   }
-                })
-                .catch(err => console.log(err));
+                });
             };
           },
         },
@@ -80,6 +80,28 @@ const Editor = () => {
       });
   };
 
+  const editPost = () => {
+    if (!title || !contents) return;
+    fetch(`${API.diary}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        diaryId: editData.diaryId,
+        newDiaryData: {
+          title: title,
+          contents: contents,
+          thumbnail: editData.thumbnail,
+        },
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.message === 'success') {
+          navigate('/');
+        }
+      });
+  };
+
   return (
     <Container>
       <Title
@@ -88,7 +110,11 @@ const Editor = () => {
         onChange={titleHandler}
         placeholder="제목을 입력하세요"
       />
-      <SubmitBtn onClick={createPost}>게시글 등록</SubmitBtn>
+      {editData ? (
+        <SubmitBtn onClick={editPost}>게시글 수정</SubmitBtn>
+      ) : (
+        <SubmitBtn onClick={createPost}>게시글 등록</SubmitBtn>
+      )}
       <StyledQuill
         modules={modules}
         value={contents}
