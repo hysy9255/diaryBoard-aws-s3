@@ -9,5 +9,6 @@ exports.s3Uploadv2 = async (file) => {
     ContentType: "image/jpeg",
     Body: file.buffer,
   };
+  console.log(process.env.AWS_BUCKET_NAME);
   return await s3.upload(param).promise();
 };
