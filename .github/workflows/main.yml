@@ -50,6 +50,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print working directory
-        run: pwd
+        run: echo `${{ secrets.DOCKER_USERNAME }}`
       - name: List files
         run: ls -al
