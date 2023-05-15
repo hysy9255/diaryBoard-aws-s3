@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  backend:
+    image: hysy9255/diaryboard-aws-s3-backend:latest
+    ports:
+      - 9000:9000
+  frontend:
+    image: hysy9255/diaryboard-aws-s3-frontend:latest
+    ports:
+      - 3000:3000
