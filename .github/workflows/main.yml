@@ -28,7 +28,7 @@ jobs:
           DATABASE_URI: ${{ secrets.DATABASE_URI }}
 
       - name: test
-          - runs: console.log(${{secrets.DATABASE_URI }})
+          - runs: console.log(${{ secrets.DATABASE_URI }})
 
       - name: Build and push docker image for frontend
         uses: mr-smithers-excellent/docker-build-push@v6
